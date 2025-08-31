@@ -1,0 +1,25 @@
+---
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
+import '../styles/global.css'
+
+---
+
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/jpg" href="/image.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta  name="generator" content={Astro.generator} />
+</head>
+
+<body>
+    <Header />
+    <main class="bg-gray-800 py-40">
+        <div class="content">
+            <slot />
+        </div>
+    </main>
+    <Footer />
+</body>
+</html>

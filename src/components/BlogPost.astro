@@ -1,0 +1,10 @@
+---
+import '../styles/global.css'
+const {url, title, image, description} = Astro.props;
+---
+
+<div>
+    <img src={image.url} alt={image.alt} width="300"/>
+    <h2><a href={url}>{title}</a></h2>
+    <p>{description}</p>
+</div>

@@ -1,16 +1,53 @@
 ---
+import BaseLayout from "../layouts/Default.astro";
+//window.alert("Loaded");
+// NAV toggle
+
 
 ---
+<BaseLayout>
+    <section class="bg-gray-800 py-20">
+        <div class="container mx-auto px-6 flex flex-col-reverse md:flex-row items-center">
+            <!-- Text content -->
+            <div class="w-full md:w-1/2 mt-8 md:mt-0 megane-text">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">
+                    シンタ
+                </h1>
+                <p class="text-lg text-gray-400 mb-6">
+                    いろいろあるよ(そうなる予定)
+                </p>
+                <a href="/about"
+                   class="inline-block bg-pink-500 text-gray-900 px-6 py-3 rounded-lg hover:bg-pink-400 transition">
+                    詳しく見る
+                </a>
+            </div>
+            <!-- Profile image -->
+            <div class="w-full md:w-1/2 flex justify-center megane-image">
+                <div class="w-56 h-56 rounded-full overflow-hidden shadow-2xl transform hover:scale-105 transition">
+                    <img src="public/image.jpg" alt="Profile" class="w-full h-full object-cover"/>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<html lang="ja">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>我がサイト</h1>
-	</body>
+    <!-- Content Section -->
+    <section class="container mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-500 p-6 rounded-lg shadow-xl hover:shadow-2xl grid-item">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-100"><a href="projects.html">作ったもの</a></h2>
+            <p class="text-gray-300">何か出来たら追加予定</p>
+        </div>
+        <div class="bg-gray-500 p-6 rounded-lg shadow-xl hover:shadow-2xl grid-item">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-100"><a href="https://note.com/hassenius_2005">Blog</a>
+            </h2>
+            <p class="text-gray-300">なんか吐きます</p>
+        </div>
+        <div class="bg-gray-500 p-6 rounded-lg shadow-xl hover:shadow-2xl grid-item">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-100"><a href="/contact">Contact</a></h2>
+            <p class="text-gray-300">質問があればどうぞ</p>
+        </div>
+    </section>
+</BaseLayout>
+    
+
+</body>
 </html>

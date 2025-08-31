@@ -1,0 +1,27 @@
+---
+import '../styles/global.css'
+---
+
+<header class="sticky top-0 bg-gray-600 shadow-lg z-50">
+    <nav class="container mx-auto flex items-center justify-between py-4 px-6">
+        <a href="/" class="logo text-2xl font-extrabold text-pink-500">シンタ</a>
+        <ul class="hidden md:flex space-x-8 nav-links">
+            <li><a href="/about" class="hover:text-green-400">About</a></li>
+            <li><a href="/blog" class="hover:text-green-400" target="_blank">Blog</a></li>
+        </ul>
+        <!-- Mobile menu toggle -->
+        <button id="navToggle" class="md:hidden focus:outline-none text-gray-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </nav>
+    <!-- Mobile menu -->
+    <div id="navMenu" class="hidden md:hidden bg-gray-800">
+        <ul class="flex flex-col space-y-2 p-4">
+            <li><a href="/about" class="block hover:text-green-400">About</a></li>
+            <li><a href="/blog" class="block hover:text-green-400" target="_blank">Blog</a></li>
+        </ul>
+    </div>
+</header>
