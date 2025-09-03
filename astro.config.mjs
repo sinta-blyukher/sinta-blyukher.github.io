@@ -11,6 +11,6 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  site: 'https://sinta-byukher.github.io',
+  site: 'https://github.com/sinta-blyukher/sinta-blyukher.github.io',
   adapter: netlify(),
 });
