@@ -4,9 +4,6 @@ import Footer from "../components/Footer.astro"
 import Seo from "../components/Seo.astro"
 
 import '../styles/global.css'
-import { getBlogs } from "../library/microcms";
-const response = await getBlogs({ fields: ["id", "title" ]});
-
 ---
 
 <html lang="ja">

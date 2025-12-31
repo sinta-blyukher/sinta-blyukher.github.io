@@ -1,24 +1,26 @@
 ---
 import BlogLayout from "../../layouts/BlogLayout.astro";
-
 import BlogPost from "../../components/BlogPost.astro";
 import SidebarTaxonomy from "../../components/SidebarTaxonomy.astro";
-import { getBlogs } from "../../library/microcms";
+import { getAllPosts, getAllTags, getAllCategories } from "../../utils/blog";
 
 const url = Astro.url;
 const pageParam = Number(url.searchParams.get('page') || '1');
 const page = Number.isFinite(pageParam) && pageParam > 0 ? pageParam : 1;
 const limit = 9;
-const offset = (page - 1) * limit;
 
-const response = await getBlogs({
-  fields: ["id", "title", "eyecatch", "tags", "category"],
-  limit,
-  offset,
-});
-
-const total = response.totalCount ?? response.contents?.length ?? 0;
+// すべての投稿を取得
+const allPosts = await getAllPosts();
+const total = allPosts.length;
 const pageCount = Math.max(1, Math.ceil(total / limit));
+
+// ページネーション適用
+const offset = (page - 1) * limit;
+const posts = allPosts.slice(offset, offset + limit);
+
+// サイドバー用のタグとカテゴリを取得（全投稿から）
+const tags = await getAllTags();
+const categories = await getAllCategories();
 
 const pageTitle = "Blog";
 const buildPageUrl = (p: number) => {
@@ -27,10 +29,7 @@ const buildPageUrl = (p: number) => {
   const s = params.toString();
   return s ? `?${s}` : '';
 };
-
 ---
-
-
 
 <BlogLayout pageTitle={pageTitle}>
   <section class="mb-10">
@@ -43,12 +42,14 @@ const buildPageUrl = (p: number) => {
     <div class="lg:col-span-2">
       <ul class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
         {
-          response.contents.map((content: any) => (
+          posts.map((post) => (
             <li>
               <BlogPost
-                url={content.id}
-                title={content.title}
-                image={content.eyecatch}
+                url={post.url}
+                title={post.title}
+                image={post.eyecatch}
+                description={post.description}
+                tags={post.tags}
               />
             </li>
           ))
@@ -57,23 +58,7 @@ const buildPageUrl = (p: number) => {
     </div>
 
     <div>
-      {
-        (() => {
-          const tags: string[] = [];
-          const categories: string[] = [];
-          for (const c of response.contents) {
-            if (Array.isArray(c.tags)) {
-              for (const t of c.tags) {
-                const name = typeof t === 'string' ? t : (t && (t as any).name);
-                if (name) tags.push(name);
-              }
-            }
-            const cat = (typeof c.category === 'string') ? c.category : (c.category as any)?.name;
-            if (cat) categories.push(cat);
-          }
-          return <SidebarTaxonomy tags={tags} categories={categories} />
-        })()
-      }
+      <SidebarTaxonomy tags={tags} categories={categories} />
     </div>
   </section>
 

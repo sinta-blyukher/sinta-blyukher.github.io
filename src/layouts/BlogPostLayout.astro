@@ -1,23 +1,213 @@
 ---
 import BlogLayout from "../layouts/BlogLayout.astro";
-
-
+import SidebarTaxonomy from "../components/SidebarTaxonomy.astro";
 import '../styles/global.css'
-import { getBlogs } from "../library/microcms";
-const response = await getBlogs({ fields: ["id", "title"]});
 
+const { frontmatter, Content } = Astro.props;
+const pageTitle = frontmatter?.title || "Blog Post";
+
+// 公開日をフォーマット
+const published = frontmatter?.pubDate
+  ? (typeof frontmatter.pubDate === 'string'
+      ? new Date(frontmatter.pubDate)
+      : frontmatter.pubDate)
+  : null;
+const publishedStr = published
+  ? published.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' })
+  : '';
+
+// タグをフィルタリング
+const tags = (frontmatter?.tags || [])
+  .filter((tag): tag is string => typeof tag === 'string' && tag.trim().length > 0)
+  .map(tag => tag.trim());
+
+// カテゴリ
+const category = frontmatter?.category?.trim() || undefined;
+const categories = category ? [category] : [];
+
+// トップ画像
+const topImage = frontmatter?.image?.url?.trim() || '';
 ---
 
-<BlogLayout pageTitle="Blog Post" />
-    <article class="max-w-3xl mx-auto">
-        <ul>
-            {
-                response.contents.map((content: any) => (
-                        <li>
-                            <a href={content.id}>{content.title}</a>
-                        </li>
-                ))
-            }
-        </ul>
+<BlogLayout pageTitle={pageTitle}>
+  <div class="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <article class="lg:col-span-2">
+      <header class="mb-8">
+        <a href="/blog/" class="text-sm text-gray-300 hover:text-white mb-4 inline-block">
+          ← 記事一覧へ戻る
+        </a>
+        
+        <h1 class="mt-4 text-3xl md:text-4xl font-bold tracking-tight">
+          {frontmatter?.title || 'Untitled'}
+        </h1>
+        
+        <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-400">
+          {publishedStr && (
+            <time datetime={published?.toISOString()}>
+              公開日: {publishedStr}
+            </time>
+          )}
+          {frontmatter?.author && (
+            <span>著者: {frontmatter.author}</span>
+          )}
+        </div>
+
+        {tags.length > 0 && (
+          <div class="mt-4 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <a
+                href={`/blog/tag/${encodeURIComponent(tag)}/`}
+                class="inline-block rounded-full bg-black/40 border border-white/10 px-3 py-1 text-xs text-gray-300 hover:bg-black/60 hover:border-indigo-400"
+              >
+                #{tag}
+              </a>
+            ))}
+          </div>
+        )}
+      </header>
+
+      {topImage && (
+        <div class="mb-8">
+          <img
+            src={topImage}
+            alt={frontmatter?.image?.alt || frontmatter?.title || ''}
+            class="w-full rounded-xl border border-white/10 shadow-lg"
+            loading="eager"
+          />
+        </div>
+      )}
+
+      <div class="prose prose-invert prose-img:rounded-lg prose-img:shadow-lg prose-img:border prose-img:border-white/10 max-w-none article-content">
+        <Content />
+      </div>
     </article>
+
+    <div>
+      <SidebarTaxonomy tags={tags} categories={categories} />
+    </div>
+  </div>
 </BlogLayout>
+
+<style>
+  .article-content {
+    color: #e5e7eb;
+    line-height: 1.75;
+  }
+
+  .article-content h1,
+  .article-content h2,
+  .article-content h3,
+  .article-content h4,
+  .article-content h5,
+  .article-content h6 {
+    color: #f3f4f6;
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+
+  .article-content h1 {
+    font-size: 2.25em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5em;
+  }
+
+  .article-content h2 {
+    font-size: 1.875em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5em;
+  }
+
+  .article-content h3 {
+    font-size: 1.5em;
+  }
+
+  .article-content p {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+  }
+
+  .article-content img {
+    margin: 2em auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .article-content a {
+    color: #60a5fa;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .article-content a:hover {
+    color: #93c5fd;
+  }
+
+  .article-content ul,
+  .article-content ol {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    padding-left: 1.625em;
+  }
+
+  .article-content li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .article-content code {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 0.125em 0.375em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .article-content pre {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 1em;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 1.5em 0;
+  }
+
+  .article-content pre code {
+    background: none;
+    padding: 0;
+    border: none;
+  }
+
+  .article-content blockquote {
+    border-left: 4px solid rgba(255, 255, 255, 0.2);
+    padding-left: 1em;
+    margin: 1.5em 0;
+    color: #d1d5db;
+    font-style: italic;
+  }
+
+  .article-content hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 2em 0;
+  }
+
+  .article-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+  }
+
+  .article-content th,
+  .article-content td {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75em;
+    text-align: left;
+  }
+
+  .article-content th {
+    background-color: rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+  }
+</style>

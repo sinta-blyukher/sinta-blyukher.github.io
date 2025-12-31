@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../layouts/Default.astro";
+import "../styles/global.css";
+
+// 相互リンクのデータ
+const links = [
+  // ここに相互リンクの情報を追加できます
+  // 例:
+  // {
+  //   name: "サイト名",
+  //   url: "https://example.com",
+  //   description: "サイトの説明",
+  // },
+];
+---
+
+<BaseLayout>
+  <main class="mx-auto max-w-4xl p-6 md:p-10 space-y-8">
+    <header class="space-y-2">
+      <h1 class="text-3xl md:text-4xl font-semibold">相互リンク</h1>
+      <p class="text-sm md:text-base text-gray-400">
+        お互いのサイトをリンクし合っているサイト一覧です。相互リンクをご希望の場合は、お気軽にお問い合わせください。
+      </p>
+    </header>
+
+    {links.length > 0 ? (
+      <section aria-labelledby="links-heading">
+        <h2
+          id="links-heading"
+          class="sr-only"
+          style="position:absolute;left:-9999px;"
+        >
+          リンク一覧
+        </h2>
+
+        <ul class="grid gap-6 md:grid-cols-2">
+          {links.map((link) => (
+            <li class="neu-card neu--radius-lg p-6 space-y-3 hover:shadow-lg transition">
+              <div class="space-y-2">
+                <h3 class="text-lg font-semibold">
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sky-300 hover:text-sky-200 hover:underline"
+                  >
+                    {link.name}
+                  </a>
+                </h3>
+                {link.description && (
+                  <p class="text-sm text-gray-400 leading-relaxed">
+                    {link.description}
+                  </p>
+                )}
+                <div class="text-xs text-gray-500">
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:underline"
+                  >
+                    {link.url.replace(/^https?:\/\//, '')}
+                  </a>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : (
+      <section class="neu-card neu--radius-lg p-8 text-center">
+        <p class="text-gray-400">
+          現在、相互リンクしているサイトはありません。
+        </p>
+        <p class="text-sm text-gray-500 mt-2">
+          相互リンクをご希望の場合は、お気軽にお問い合わせください。
+        </p>
+      </section>
+    )}
+
+    <section class="neu-card neu--radius-lg p-6 md:p-8 space-y-4">
+      <h2 class="text-2xl font-semibold">相互リンクについて</h2>
+      <div class="space-y-3 text-sm md:text-base leading-relaxed">
+        <p>
+          相互リンクをご希望の場合は、以下のいずれかの方法でお問い合わせください。
+        </p>
+        <div class="space-y-2">
+          <p>
+            <span class="font-medium">メール:</span>
+            <a
+              href="mailto:ramenrice555@gmail.com"
+              class="text-sky-300 hover:text-sky-200 hover:underline ml-2"
+            >
+              ramenrice555@gmail.com
+            </a>
+          </p>
+          <p>
+            <span class="font-medium">X (Twitter):</span>
+            <a
+              href="https://x.com/sug1m0t0_unk"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sky-300 hover:text-sky-200 hover:underline ml-2"
+            >
+              @sug1m0t0_unk
+            </a>
+          </p>
+        </div>
+        <p class="text-gray-400 text-sm mt-4">
+          お問い合わせの際は、サイト名、URL、簡単な説明をお知らせください。
+        </p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

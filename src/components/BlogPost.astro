@@ -1,12 +1,15 @@
 ---
 import '../styles/global.css'
-const {url, title, image, description} = Astro.props;
+const {url, title, image, description, tags = []} = Astro.props;
+
+// タグをフィルタリング（空文字列を除去）
+const validTags = Array.isArray(tags) ? tags.filter(tag => tag && tag.trim().length > 0) : [];
 ---
 
 <article class="bg-gray-800/60 border border-white/10 rounded-xl overflow-hidden shadow hover:shadow-lg transition">
   <a class="block" href={url}>
     <div class="flex gap-4 p-4 items-start">
-      {image?.url && (
+      {image?.url && image.url.trim().length > 0 && (
         <img class="w-28 h-28 object-cover rounded-md flex-none" src={image.url} alt={image?.alt || title} />
       )}
       <div class="min-w-0 flex-1">
@@ -14,7 +17,16 @@ const {url, title, image, description} = Astro.props;
           {title}
         </h2>
         {description && (
-          <p class="text-sm text-gray-300 leading-relaxed">{description}</p>
+          <p class="text-sm text-gray-300 leading-relaxed mt-1">{description}</p>
+        )}
+        {validTags.length > 0 && (
+          <div class="mt-2 flex flex-wrap gap-1.5">
+            {validTags.map((tag) => (
+              <span class="inline-block rounded-full bg-black/40 border border-white/10 px-2 py-0.5 text-xs text-gray-300">
+                #{tag}
+              </span>
+            ))}
+          </div>
         )}
       </div>
     </div>

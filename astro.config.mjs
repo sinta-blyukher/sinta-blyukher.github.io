@@ -7,6 +7,8 @@ import cloudflare from '@astrojs/cloudflare';
 
 import relativeLinks from 'astro-relative-links';
 
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -16,5 +18,12 @@ export default defineConfig({
   site: 'https://sinta.fun',
   //base: 'https://sinta.fun/',
   adapter: cloudflare(),
-  integrations: [relativeLinks()],
+  integrations: [
+    relativeLinks(),
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
+    }),
+  ],
 });
