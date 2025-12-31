@@ -3,7 +3,16 @@ import BlogLayout from "../layouts/BlogLayout.astro";
 import SidebarTaxonomy from "../components/SidebarTaxonomy.astro";
 import '../styles/global.css'
 
+// #region agent log
+fetch('http://127.0.0.1:7242/ingest/46532563-ea0b-4320-bba6-b6e807ce9d69',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BlogPostLayout.astro:7',message:'Checking Astro.props',data:{hasProps:!!Astro.props,propsKeys:Object.keys(Astro.props || {}),hasFrontmatter:!!Astro.props?.frontmatter,hasContent:!!Astro.props?.Content,contentType:typeof Astro.props?.Content},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+// #endregion
+
 const { frontmatter, Content } = Astro.props;
+
+// #region agent log
+fetch('http://127.0.0.1:7242/ingest/46532563-ea0b-4320-bba6-b6e807ce9d69',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BlogPostLayout.astro:15',message:'After destructuring',data:{hasFrontmatter:!!frontmatter,hasContent:!!Content,contentValue:Content,frontmatterTitle:frontmatter?.title},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+// #endregion
+
 const pageTitle = frontmatter?.title || "Blog Post";
 
 // 公開日をフォーマット
@@ -78,7 +87,13 @@ const topImage = frontmatter?.image?.url?.trim() || '';
       )}
 
       <div class="prose prose-invert prose-img:rounded-lg prose-img:shadow-lg prose-img:border prose-img:border-white/10 max-w-none article-content">
-        <Content />
+        {/* #region agent log */}
+        {(() => {
+          fetch('http://127.0.0.1:7242/ingest/46532563-ea0b-4320-bba6-b6e807ce9d69',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BlogPostLayout.astro:89',message:'Rendering content via slot',data:{hasContent:!!Content,hasSlot:true,contentType:typeof Content},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+          return null;
+        })()}
+        {/* #endregion */}
+        <slot />
       </div>
     </article>
 
