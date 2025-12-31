@@ -18,8 +18,8 @@ const publishedStr = published
 
 // タグをフィルタリング
 const tags = (frontmatter?.tags || [])
-  .filter((tag): tag is string => typeof tag === 'string' && tag.trim().length > 0)
-  .map(tag => tag.trim());
+  .filter((tag: any): tag is string => typeof tag === 'string' && tag.trim().length > 0)
+  .map((tag: string) => tag.trim());
 
 // カテゴリ
 const category = frontmatter?.category?.trim() || undefined;
@@ -54,7 +54,7 @@ const topImage = frontmatter?.image?.url?.trim() || '';
 
         {tags.length > 0 && (
           <div class="mt-4 flex flex-wrap gap-2">
-            {tags.map((tag) => (
+            {tags.map((tag: string) => (
               <a
                 href={`/blog/tag/${encodeURIComponent(tag)}/`}
                 class="inline-block rounded-full bg-black/40 border border-white/10 px-3 py-1 text-xs text-gray-300 hover:bg-black/60 hover:border-indigo-400"
