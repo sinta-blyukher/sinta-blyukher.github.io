@@ -1,70 +1,198 @@
 ---
-import '../styles/global.css'
+import "../styles/global.css";
 
 const links = [
-  { href: '/',        label: 'Home' },
-  { href: '/#about',  label: 'About' },
-  { href: '/#works',   label: 'Works' },
-  { href: '/blog/',   label: 'Blog' },
-  { href: '/links/',  label: 'Links' }
+  { href: "/", label: "Home" },
+  { href: "/#about", label: "About" },
+  { href: "/#works", label: "Works" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/links/", label: "Links" },
 ];
 
 const { pathname } = Astro.url;
 
 const isActive = (href: string) => {
-  if (href === '/') return pathname === '/';
+  if (href === "/") return pathname === "/";
   return pathname.startsWith(href);
 };
-
 ---
 
-  <header id="header" class="site-header border-b">
-    <div class="container mx-auto flex items-center justify-between p-4">
-      <a class="flex items-center gap-4" href="/" aria-label="Home">
-        <span class="terminal-logo" aria-hidden="true">[SUGIMOTO]</span>
-        <span class="sr-only">Sugimoto</span>
-      </a>
-
-      <nav class="nav" aria-label="メインナビゲーション">
-        <ul class="site-nav-list flex items-center gap-3 text-lg p-2">
-          {links.map(link => (
-            <li class={isActive(link.href) ? 'is-current' : ''}>
-              <a
-                href={link.href}
-                class="nav-link"
-                aria-current={isActive(link.href) ? 'page' : undefined}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+<header class="site-header">
+  <div class="container mx-auto flex h-20 items-center justify-between px-4">
+    <a class="flex items-center gap-4" href="/" aria-label="Home">
+      <span class="terminal-logo" aria-hidden="true">
+        <span class="typewriter">[SUGIMOTO]</span>
+      </span>
+      <span class="sr-only">Sugimoto</span>
+    </a>
+    <div class="relative flex items-center">
+      <button
+        id="navToggle"
+        class="nav-toggle md:hidden"
+        type="button"
+        aria-controls="navMenu"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Menu</span>
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+      </button>
+      <nav
+        id="navMenu"
+        class="site-nav hidden md:block"
+        aria-label="メインナビゲーション"
+      >
+        <ul
+          class="site-nav-list flex flex-col items-start gap-3 p-3 text-lg md:flex-row md:items-center md:p-2"
+        >
+          {
+            links.map((link) => (
+              <li class={isActive(link.href) ? "is-current" : ""}>
+                <a
+                  href={link.href}
+                  class="nav-link"
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
     </div>
-  </header>
+  </div>
 
-<script is:inline>
-  const btn = document.getElementById('navToggle');
-  const menu = document.getElementById('navMenu');
-  if (btn && menu) {
-    const toggle = () => {
-      const isOpen = !menu.classList.contains('hidden');
-      menu.classList.toggle('hidden');
-      btn.setAttribute('aria-expanded', String(!isOpen));
-    };
-    btn.addEventListener('click', toggle);
-    // Close on link click and Escape
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') menu.classList.add('hidden');
-    });
-  }
-</script>
+  <script is:inline>
+    const btn = document.getElementById("navToggle");
+    const menu = document.getElementById("navMenu");
+    if (btn && menu) {
+      const closeMenu = () => {
+        menu.classList.add("hidden");
+        btn.classList.remove("is-open");
+        btn.setAttribute("aria-expanded", "false");
+      };
 
-<style>
-  .nav-link--active {
-    color: #f9fafb;
-    border-bottom-color: #38bdf8; /* ハイライト色 */
-    font-weight: 600;
-  }
-</style>
+      const toggle = () => {
+        const isOpen = !menu.classList.contains("hidden");
+        menu.classList.toggle("hidden");
+        btn.classList.toggle("is-open");
+        btn.setAttribute("aria-expanded", String(!isOpen));
+      };
+      btn.addEventListener("click", toggle);
+      // Close on link click and Escape
+      menu
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeMenu));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeMenu();
+        }
+      });
+    }
+  </script>
+
+  <style>
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      min-width: 12rem;
+      border: 1px solid rgba(124, 255, 124, 0.35);
+      background: rgba(5, 12, 8, 0.96);
+      box-shadow: 0 0 16px rgba(124, 255, 124, 0.18);
+    }
+
+    .nav-toggle {
+      width: 2.75rem;
+      height: 2.5rem;
+      border: 1px solid rgba(124, 255, 124, 0.35);
+      background: rgba(124, 255, 124, 0.08);
+      color: var(--page-accent-strong);
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 0 12px rgba(124, 255, 124, 0.18);
+    }
+
+    .nav-toggle-bars,
+    .nav-toggle-bars::before,
+    .nav-toggle-bars::after {
+      content: "";
+      display: block;
+      width: 1.35rem;
+      height: 2px;
+      background: currentColor;
+      transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+    }
+
+    .nav-toggle-bars::before {
+      transform: translateY(-6px);
+    }
+
+    .nav-toggle-bars::after {
+      transform: translateY(4px);
+    }
+
+    .nav-toggle.is-open .nav-toggle-bars {
+      transform: rotate(45deg);
+    }
+
+    .nav-toggle.is-open .nav-toggle-bars::before {
+      transform: rotate(90deg);
+    }
+
+    .nav-toggle.is-open .nav-toggle-bars::after {
+      opacity: 0;
+    }
+
+    .typewriter {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid var(--cursor-color);
+      animation:
+        typing 2.2s steps(10, end) 0.4s both,
+        caret 0.8s step-end infinite;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: calc(10ch + 1.62em);
+      }
+    }
+
+    @keyframes caret {
+      0%,
+      100% {
+        border-color: transparent;
+      }
+      50% {
+        border-color: var(--cursor-color);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .site-nav {
+        position: static;
+        min-width: unset;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .nav-toggle {
+        display: none;
+      }
+    }
+
+    .nav-link--active {
+      color: #f9fafb;
+      border-bottom-color: #38bdf8; /* ハイライト色 */
+      font-weight: 600;
+    }
+  </style>
+</header>
