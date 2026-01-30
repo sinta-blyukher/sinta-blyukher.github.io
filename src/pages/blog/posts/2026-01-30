@@ -1,0 +1,18 @@
+---
+layout: ../../../layouts/BlogPostLayout.astro
+title: 自作OSについて備忘録１
+author: 'sugimoto'
+description: "自作OSについての備忘録１"
+image:
+  url: "icon6.png"
+  alt: "megane"
+pubDate: 2026-01-30
+tags: ["自作OS"]
+---
+
+#自作OSについての備忘録１
+##目標
+###WASMランタイムが動く自作OSを作る
+##短期的目標
+###とりあえず１０００行で作るOSの写経
+###qemu-wasm上でそれを動かす
