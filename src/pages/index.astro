@@ -180,7 +180,7 @@ const WAKA_API_BASE =
             WakaTime / language usage
           </h2>
           <p class="text-sm text-[var(--muted-text)]">
-            毎年 12/1 から今日までの言語ごとの作業時間を取得します。
+            毎年 12/1 から今日までの言語ごとの使用率を取得します。
           </p>
         </header>
 
@@ -311,7 +311,6 @@ const WAKA_API_BASE =
   };
 
   type WakaResponse = {
-    total_seconds?: number;
     languages?: WakaLanguage[];
   };
 
@@ -339,13 +338,6 @@ const WAKA_API_BASE =
     }, 16);
   };
 
-  const toDurationLabel = (seconds: number) => {
-    const total = Math.max(0, Math.round(seconds));
-    const h = Math.floor(total / 3600);
-    const m = Math.floor((total % 3600) / 60);
-    return `${h}h ${m}m`;
-  };
-
   const toDateString = (date: Date) => {
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -371,9 +363,7 @@ const WAKA_API_BASE =
       const li = document.createElement("li");
       li.className = "waka-row";
       const rawPct = x.percent ?? 0;
-      const rawSec = x.seconds ?? 0;
       const pct = Number.isFinite(rawPct) ? Math.max(0, Math.min(100, rawPct)) : 0;
-      const sec = Number.isFinite(rawSec) ? rawSec : 0;
       const langName = x.name ?? "unknown";
       li.innerHTML = `
         <div class="waka-row-head">
@@ -381,9 +371,6 @@ const WAKA_API_BASE =
         </div>
         <div class="waka-name-wrap" title="${langName}">
           <span class="waka-name">${langName}</span>
-        </div>
-        <div class="waka-row-sub">
-          <span class="waka-meta">${toDurationLabel(sec)}</span>
         </div>
         <div class="waka-bar"><span style="width:${pct.toFixed(1)}%"></span></div>
       `;
@@ -418,7 +405,7 @@ const WAKA_API_BASE =
       const langs = Array.isArray(data.languages) ? data.languages : [];
       renderLanguageRows(langs);
       setStatus(
-        `$ ${range.start} -> ${range.end} / total ${toDurationLabel(data.total_seconds ?? 0)} / ${langs.length} languages`,
+        `$ ${range.start} -> ${range.end} / ${langs.length} languages`,
         "ok",
       );
       if (langs.length === 0) {
