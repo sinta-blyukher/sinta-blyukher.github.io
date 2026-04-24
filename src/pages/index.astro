@@ -191,7 +191,9 @@ const WAKA_API_BASE =
         </header>
 
         <div class="flex justify-start">
-          <button id="load" type="button" class="waka-button">RELOAD ALL TIME</button>
+          <button id="load" type="button" class="waka-button"
+            >RELOAD ALL TIME</button
+          >
         </div>
 
         <div
@@ -287,6 +289,37 @@ const WAKA_API_BASE =
               >
             </div>
           </li>
+
+          <li class="neu-card neu--radius-lg p-6 space-y-3">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold">
+                キラキラネームメーカーのバックエンド
+              </h3>
+              <p class="text-sm text-gray-400">
+                学内ハッカソンのp2hacksで技術者保育園のバックエンド担当として開発したものです。ESP32と通信して送られてきたデータを元にランダムでキラキラネームをGemini
+                APIで生成し、プリンターで印刷するためのバックエンドです。
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2 text-xs mt-2">
+              <span class="terminal-chip">FastAPI</span>
+              <span class="terminal-chip">Python</span>
+            </div>
+
+            <div class="mt-3 flex items-center gap-3 text-sm">
+              <a
+                href="https://github.com/p2hacks2025/pre-21"
+                target="_blank"
+                rel="noopener"
+                class="nav-link"
+              >
+                GitHub
+              </a>
+              <time datetime="2025-11" class="ml-auto text-xs text-gray-500">
+                2025-12
+              </time>
+            </div>
+          </li>
         </ul>
       </section>
 
@@ -369,7 +402,9 @@ const WAKA_API_BASE =
       const li = document.createElement("li");
       li.className = "waka-row";
       const rawPct = x.percent ?? 0;
-      const pct = Number.isFinite(rawPct) ? Math.max(0, Math.min(100, rawPct)) : 0;
+      const pct = Number.isFinite(rawPct)
+        ? Math.max(0, Math.min(100, rawPct))
+        : 0;
       const langName = x.name ?? "unknown";
       li.innerHTML = `
         <div class="waka-row-head">
@@ -435,7 +470,11 @@ const WAKA_API_BASE =
 <style>
   #wakatime .waka-button {
     border: 1px solid rgba(124, 255, 124, 0.45);
-    background: linear-gradient(180deg, rgba(20, 50, 26, 0.8), rgba(6, 15, 9, 0.95));
+    background: linear-gradient(
+      180deg,
+      rgba(20, 50, 26, 0.8),
+      rgba(6, 15, 9, 0.95)
+    );
     color: var(--page-accent-strong);
     border-radius: 0.45rem;
     padding: 0.6rem 0.9rem;
@@ -560,7 +599,11 @@ const WAKA_API_BASE =
     display: block;
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, rgba(124, 255, 124, 0.45), rgba(198, 255, 162, 0.95));
+    background: linear-gradient(
+      90deg,
+      rgba(124, 255, 124, 0.45),
+      rgba(198, 255, 162, 0.95)
+    );
     box-shadow: 0 0 10px rgba(124, 255, 124, 0.35);
   }
 
