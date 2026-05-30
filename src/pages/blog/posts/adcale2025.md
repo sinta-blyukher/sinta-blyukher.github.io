@@ -5,7 +5,7 @@ author: 'sugimoto'
 description: '余り部品と約1000円の追加購入で簡易ロボットカーを制作した記録'
 pubDate: '2026/03/20'
 image:
-    url: "../../../assets/robotcar.jpg"
+    url: "https://pbs.twimg.com/media/HDrrfYcakAA8kkZ?format=jpg&name=4096x4096"
     alt: "robot"
 tags: ['robotics']
 ---
