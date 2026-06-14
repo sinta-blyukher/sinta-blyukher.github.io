@@ -17,6 +17,10 @@
 - `npm run dev`: Start local dev server
 - `npm run build`: Type-check and build to `dist/`
 - `npm run preview`: Preview the production build
+- `npm run lint`: Lint Astro and TypeScript files
+- `npm test`: Run unit tests once
+- `npm run test:watch`: Run unit tests in watch mode
+- `npm run ci`: Run lint, tests, and the production build
 - `npm run pages:dev`: Build and start the Cloudflare Workers local runtime
 - `npm run pages:deploy`: Build and deploy with Cloudflare Workers Static Assets
 

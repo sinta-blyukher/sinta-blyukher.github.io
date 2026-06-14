@@ -27,7 +27,7 @@ const publishedStr = published
 
 // タグをフィルタリング
 const tags = (frontmatter?.tags || [])
-  .filter((tag: any): tag is string => typeof tag === 'string' && tag.trim().length > 0)
+  .filter((tag: unknown): tag is string => typeof tag === 'string' && tag.trim().length > 0)
   .map((tag: string) => tag.trim());
 
 // カテゴリ

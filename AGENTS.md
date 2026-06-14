@@ -12,6 +12,10 @@
 - `npm run dev`: Astro の開発サーバーを起動（ホットリロード）。
 - `npm run build`: `astro check` の後に `dist/` へビルド。
 - `npm run preview`: 本番ビルドをローカルで確認。
+- `npm run lint`: Astro と TypeScript の静的解析。
+- `npm test`: Vitest の単体テストを一度実行。
+- `npm run test:watch`: Vitest を監視モードで実行。
+- `npm run ci`: lint、テスト、ビルドを順番に実行。
 - `npm run pages:dev`: `wrangler` 経由で Cloudflare Pages のローカル開発。
 - `npm run pages:deploy`: ビルドして Cloudflare Pages へデプロイ。
 

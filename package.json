@@ -9,6 +9,10 @@
     "preview": "astro preview",
     "astro": "npx astro",
     "wrangler": "npx wrangler",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "ci": "npm run lint && npm test && npm run build",
     "pages:dev": "npm run build && wrangler dev",
     "pages:deploy": "npm run build && wrangler deploy"
   },
@@ -23,6 +27,11 @@
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.3",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.5.0",
+    "eslint-plugin-astro": "^1.7.0",
+    "typescript-eslint": "^8.61.0",
+    "vitest": "^4.1.8",
     "wrangler": "^4.52.1"
   }
 }
