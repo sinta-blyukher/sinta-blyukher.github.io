@@ -13,18 +13,16 @@
     "pages:deploy": "astro build && wrangler pages deploy ./dist"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.6",
-    "@astrojs/cloudflare": "^12.6.12",
-    "@astrojs/netlify": "^6.5.9",
+    "@astrojs/check": "^0.9.9",
     "@tailwindcss/vite": "^4.1.12",
     "animejs": "^4.2.2",
-    "astro": "^5.13.5",
+    "astro": "^6.4.6",
     "astro-relative-links": "^0.4.2",
     "tailwindcss": "^4.1.12",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/sitemap": "^3.7.3",
     "wrangler": "^4.52.1"
   }
 }
