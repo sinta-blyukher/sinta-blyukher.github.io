@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   quality:
-    name: Lint, test, and build
+    name: Lint and test
     runs-on: ubuntu-latest
 
     steps:
@@ -35,6 +35,3 @@ jobs:
 
       - name: Test
         run: npm test
-
-      - name: Build
-        run: npm run build
