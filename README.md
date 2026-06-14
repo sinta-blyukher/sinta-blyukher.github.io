@@ -1,12 +1,12 @@
 ## Sinta — Astro Site
 
-- Framework: Astro 5 + Vite
+- Framework: Astro 6 + Vite
 - Styling: Tailwind CSS v4
 - Blog Content: Markdown files in `src/pages/blog/posts/`
 - Deploy targets: GitHub Pages (workflow included), Cloudflare Pages (wrangler scripts)
 
 ### Prerequisites
-- Node.js 20.x
+- Node.js 22.12.0 or newer
 - npm 10+ (or your preferred package manager)
 
 ### Setup
@@ -17,7 +17,7 @@
 - `npm run dev`: Start local dev server
 - `npm run build`: Type-check and build to `dist/`
 - `npm run preview`: Preview the production build
-- `npm run pages:dev`: Cloudflare Pages local dev (wrangler required)
+- `npm run pages:dev`: Build and start Cloudflare Pages locally
 - `npm run pages:deploy`: Build and deploy to Cloudflare Pages
 
 ### Deployment
@@ -26,4 +26,4 @@
 
 ### Notes
 - Blog posts are managed as Markdown files in `src/pages/blog/posts/`. Each post should have frontmatter with `title`, `image`, `tags`, `pubDate`, and optionally `category` and `description`.
-- `astro.config.mjs` is currently set up with the Cloudflare adapter. If deploying exclusively to GitHub Pages (static hosting), consider using the default static output or an appropriate adapter.
+- The site uses Astro's static output, which can be deployed directly to GitHub Pages or Cloudflare Pages.

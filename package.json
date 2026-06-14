@@ -9,12 +9,11 @@
     "preview": "astro preview",
     "astro": "npx astro",
     "wrangler": "npx wrangler",
-    "pages:dev": "wrangler pages dev --compatibility-date=2025-11-11 -- astro dev",
-    "pages:deploy": "astro build && wrangler pages deploy ./dist"
+    "pages:dev": "npm run build && wrangler pages dev ./dist",
+    "pages:deploy": "npm run build && wrangler pages deploy ./dist"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
-    "@astrojs/cloudflare": "^13.7.0",
     "@tailwindcss/vite": "^4.1.12",
     "animejs": "^4.2.2",
     "astro": "^6.4.6",

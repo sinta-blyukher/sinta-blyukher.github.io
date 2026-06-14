@@ -1,17 +1,5 @@
 {
-  "main": "dist/_worker.js/index.js",
   "name": "my-astro-app",
-  // Update to today's date
-  "compatibility_date": "2025-03-25",
-  "compatibility_flags": [
-    "nodejs_compat",
-    "global_fetch_strictly_public"
-  ],
-  "assets": {
-    "binding": "ASSETS",
-    "directory": "./dist"
-  },
-  "observability": {
-    "enabled": true
-  }
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2025-03-25"
 }

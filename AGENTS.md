@@ -35,6 +35,6 @@
 - GitHub Pages は `master` への push で `.github/workflows/astro.yml` が実行される。
 - Cloudflare Pages は `wrangler.jsonc` と `wrangler` を利用してデプロイする。
 
-##デザイン方針
+## デザイン方針
 - 内部ロジックの変更は行わずに1980年代のUNIX CUIを意識したデザインにしてください。
 - 文字入力アニメーションを追加してください追加してください
