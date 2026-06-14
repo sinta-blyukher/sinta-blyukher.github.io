@@ -1,5 +1,9 @@
 {
   "name": "my-astro-app",
   "pages_build_output_dir": "./dist",
-  "compatibility_date": "2025-03-25"
+  "compatibility_date": "2025-03-25",
+  "main": "src/index.html",
+  "assets": {
+    "directory": ["./dist/"]
+  }
 }
